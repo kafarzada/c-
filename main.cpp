@@ -24,6 +24,7 @@ int main() {
         p->next = new node_t;
         p = p->next;
     }
+    
     p->data = 888;
     p->next = nullptr;
 
