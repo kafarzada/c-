@@ -25,5 +25,8 @@ int main() {
     for(int i = 0; i < M*N; i++) {
         cout << *(p + i) << ' ';
     }
+
+
+    
     return 0;
-}
+} 
