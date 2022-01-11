@@ -97,6 +97,8 @@ class List {
                     Head = NULL;
                     Tail = NULL;
                     return 1;
+                } else {
+                    return 0;
                 }
             }
 
@@ -108,6 +110,9 @@ class List {
         }
 
         int removeItem(int data) {
+            if(Head == NULL) {
+                return 0;
+            }
             if(data == Head->data) {
                 link x = Head->next;
                 delete Head;
@@ -147,6 +152,10 @@ class List {
 
 int main() {
 
+    List l  = List();
+    l.print();
+    l.removeItem(12);
+    cout << l.Length() << endl;
     return 0;
 } 
 
