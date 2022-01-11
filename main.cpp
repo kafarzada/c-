@@ -20,35 +20,24 @@ struct node {
 typedef node *link;
 link addItem();
 
-void printList(link head) {
-    for(link i = head; i != nullptr; i = i->next) {
-        cout << i->data << '\t';
-    }
-}
-
-link addItem(link head, int data) {
-    
-    link x = head;
-
-
-    while(x != nullptr) {
-        x = x->next;
-    }
-    x->next = new node(data, x, nullptr);
-}
 
 class List {
     private:
         link Head;
+        link Tail;
     public:
-        List():Head(NULL) {}
+        List():Head(NULL), Tail(NULL) {}
 
         bool isEmpty() {
             return Head == NULL ? true : false;
         }
 
-        link getHead() {
-            return Head;
+        int getHead() {
+            return Head->data;
+        }
+
+        int getTail() {
+            return Tail->data;
         }
 
         void print() {
@@ -63,6 +52,10 @@ class List {
         }
 
         int Length() {
+
+            if(Head == NULL && Tail == NULL) {
+                return 0;
+            }
             int count = 0;
             for(link i = Head; i != NULL; i = i->next) {
                 count += 1;
@@ -74,15 +67,16 @@ class List {
         int addItem(int data)  {
             link newNode;
             if(Head == NULL) {
-                newNode = new node(data, NULL, NULL);
+                newNode = new node(data, NULL, Tail);
                 Head = newNode;
-                
+                Tail = newNode;
                 return newNode->data;
             }
             for(link i = Head; i != NULL; i = i->next) {
                 if(i->next == NULL) {
                     newNode = new node(data, i, NULL);
                     i->next = newNode;
+                    Tail = newNode;
                     break;
                 }
             }
@@ -95,6 +89,23 @@ class List {
         int push(int data) {
             
         }
+        
+        int pop() {
+            if(Head == Tail) {
+                if(Head != NULL) {
+                    delete Head;
+                    Head = NULL;
+                    Tail = NULL;
+                    return 1;
+                }
+            }
+
+            link x = Tail->prev;
+            delete Tail;
+            Tail = x;
+            Tail->next = NULL;
+            return 0;
+        }
 
         int removeItem(int data) {
             if(data == Head->data) {
@@ -103,6 +114,14 @@ class List {
                 Head = x;
                 return 1;
                 
+            }
+
+            if(data == Tail->data) {
+                link x = Tail->prev;
+                delete Tail;
+                Tail = x;
+                Tail->next = NULL;
+                return 1;
             }
             for(link i = Head; i != NULL; i = i->next) {
                 if(i->data == data) {
@@ -127,16 +146,6 @@ class List {
 
 
 int main() {
-
-    List list = List();
-
-    cout << list.addItem(1) << endl;
-    cout << list.addItem(2) << endl;
-    cout << list.addItem(3) << endl;
-    cout << list.addItem(4) << endl;
-
-    list.removeItem(1);
-    list.print();
 
     return 0;
 } 
