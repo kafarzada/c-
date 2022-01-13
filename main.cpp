@@ -86,9 +86,7 @@ class List {
             return newNode->data;
         }
 
-        int push(int data) {
-            
-        }
+
         
         int pop() {
             if(Head == Tail) {
@@ -147,15 +145,38 @@ class List {
 
             return 0;
         }
+
+        int getElementByIndex(int index) {
+            if(Head != NULL && index == 0) {
+                return Head->data;
+            } 
+
+            link x = Head;
+            int i = 0;
+            while(i < index) {
+                i += 1;
+                x = x->next;
+            }
+
+            return x->data;
+        }   
 };
 
 
 int main() {
 
     List l  = List();
-    l.print();
-    l.removeItem(12);
+    l.addItem(12);
+    l.addItem(43);
+    l.addItem(23);
+    l.addItem(65);
+    l.addItem(0);
+    l.addItem(-76);
     cout << l.Length() << endl;
+    cout << "Head = " << l.getHead() << endl;
+    cout << "Tail = " << l.getTail() << endl;
+    cout << "Elem with index 0 = " << l.getElementByIndex(0) << endl;
+    cout << "Elem with index 3 = " << l.getElementByIndex(3) << endl;
     return 0;
 } 
 
